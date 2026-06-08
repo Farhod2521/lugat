@@ -1,0 +1,49 @@
+services:
+  # ---------- PostgreSQL ma'lumotlar bazasi ----------
+  db:
+    image: postgres:16-alpine
+    container_name: lingvo_db
+    restart: unless-stopped
+    environment:
+      POSTGRES_USER: lingvo
+      POSTGRES_PASSWORD: lingvo123
+      POSTGRES_DB: lingvodb
+    ports:
+      - "5432:5432"
+    volumes:
+      - pgdata:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U lingvo -d lingvodb"]
+      interval: 5s
+      timeout: 5s
+      retries: 10
+
+  # ---------- Flask backend (REST API) ----------
+  backend:
+    build: ./flask_backend
+    container_name: lingvo_backend
+    restart: unless-stopped
+    environment:
+      DATABASE_URL: postgresql://lingvo:lingvo123@db:5432/lingvodb
+    ports:
+      - "5000:5000"
+    depends_on:
+      db:
+        condition: service_healthy
+
+  # ---------- Next.js frontend ----------
+  frontend:
+    build:
+      context: ./next_frontend
+      args:
+        # Brauzer backendga localhost orqali ulanadi
+        NEXT_PUBLIC_API_URL: http://localhost:5000
+    container_name: lingvo_frontend
+    restart: unless-stopped
+    ports:
+      - "3000:3000"
+    depends_on:
+      - backend
+
+volumes:
+  pgdata:

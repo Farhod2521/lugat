@@ -1,0 +1,18 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="72" height="72" viewBox="0 0 72 72">
+  <g fill="none" stroke="#cdd9ee" stroke-width="1.3" stroke-opacity="0.9" stroke-linejoin="round" stroke-linecap="round">
+    <!-- rombcha -->
+    <path d="M18 9 L27 18 L18 27 L9 18 Z" />
+    <!-- halqa -->
+    <circle cx="54" cy="18" r="6" />
+    <!-- plus -->
+    <path d="M18 48 V60 M12 54 H24" />
+    <!-- to'rt qirrali yulduzcha -->
+    <path d="M54 47 L55.7 52.3 L61 54 L55.7 55.7 L54 61 L52.3 55.7 L47 54 L52.3 52.3 Z" />
+    <!-- markaziy nuqtalar -->
+    <circle cx="36" cy="36" r="1.4" fill="#cdd9ee" stroke="none" />
+    <circle cx="0" cy="0" r="1.4" fill="#cdd9ee" stroke="none" />
+    <circle cx="72" cy="0" r="1.4" fill="#cdd9ee" stroke="none" />
+    <circle cx="0" cy="72" r="1.4" fill="#cdd9ee" stroke="none" />
+    <circle cx="72" cy="72" r="1.4" fill="#cdd9ee" stroke="none" />
+  </g>
+</svg>

@@ -1,0 +1,38 @@
+# ---- Maxfiy / muhit ----
+.env
+.env.*
+!.env.example
+!.env.prod.example
+!*.env.example
+next_frontend/.env.local
+
+# ---- Python (backend) ----
+__pycache__/
+*.pyc
+*.pyo
+venv/
+.venv/
+flask_backend/instance/
+*.db
+*.sqlite3
+
+# ---- Node / Next.js (frontend) ----
+node_modules/
+next_frontend/.next/
+next_frontend/out/
+next_frontend/build/
+.vercel/
+
+# ---- Manba hujjatlar (katta, faqat parserlar uchun kerak) ----
+# Generatsiya qilingan .html / .json fayllar repoda QOLADI (deploy uchun kerak).
+# Asl Word/PDF fayllarni ham qoldiramiz — istasangiz quyidagini oching:
+# *.docx
+# *.pdf
+~$*.docx
+
+# ---- OS / IDE ----
+.DS_Store
+Thumbs.db
+.idea/
+.vscode/
+*.log

@@ -1,0 +1,122 @@
+@import "tailwindcss";
+
+:root {
+  /* Yorug' tema — bitta siyoh rang oilasi (slate) + bitta ko'k urg'u */
+  --background: #eef2f9; /* sahifa asosiy foni */
+  --surface: #ffffff; /* kartalar */
+  --surface-2: #f5f8fd; /* ikkilamchi yuza */
+  --border: #e3e9f2; /* chiziqlar */
+  --ink: #1e293b; /* ASOSIY yozuv rangi (hammasi shu oiladan) */
+  --ink-soft: #475569; /* ikkilamchi matn */
+  --muted: #8a97ab; /* eng och matn */
+  --accent: #2563eb; /* yagona urg'u rang */
+  --accent-soft: #dbe6fe;
+}
+
+@theme inline {
+  --color-background: var(--background);
+  --color-surface: var(--surface);
+  --color-surface-2: var(--surface-2);
+  --color-border: var(--border);
+  --color-ink: var(--ink);
+  --color-ink-soft: var(--ink-soft);
+  --color-muted: var(--muted);
+  --color-accent: var(--accent);
+}
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  /* Bitta fon: nozik naqsh (kichik shakllar) + yumshoq rang nuri */
+  background-color: var(--background);
+  background-image:
+    radial-gradient(900px 500px at 100% -5%, rgba(37, 99, 235, 0.07), transparent),
+    radial-gradient(700px 460px at -5% 0%, rgba(14, 165, 233, 0.06), transparent),
+    url("/pattern.svg");
+  background-attachment: fixed, fixed, fixed;
+  background-repeat: no-repeat, no-repeat, repeat;
+  color: var(--ink);
+  font-family: "Segoe UI", system-ui, -apple-system, Arial, sans-serif;
+  -webkit-font-smoothing: antialiased;
+}
+
+/* Maxsus scrollbar (och tema) */
+::-webkit-scrollbar {
+  width: 10px;
+  height: 10px;
+}
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+::-webkit-scrollbar-thumb {
+  background: #cbd5e1;
+  border-radius: 8px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: #b4c0d3;
+}
+
+@keyframes fadeUp {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.fade-up {
+  animation: fadeUp 0.45s ease both;
+}
+
+/* Kartalar uchun yumshoq soya yordamchisi */
+.card-shadow {
+  box-shadow: 0 1px 2px rgba(30, 41, 59, 0.04), 0 8px 24px rgba(30, 41, 59, 0.06);
+}
+
+/* ===================== ASAR MATNI (modal) ===================== */
+.asar-body {
+  font-family: Georgia, "Times New Roman", serif;
+  font-size: 16px;
+  color: var(--ink);
+  line-height: 1.85;
+}
+
+.asar-body .asar-title {
+  text-align: center;
+  font-size: 26px;
+  font-weight: 800;
+  letter-spacing: 0.02em;
+  margin: 0.5rem 0 1.25rem;
+  color: var(--ink);
+}
+
+.asar-body .asar-bolim {
+  text-align: center;
+  font-size: 18px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  color: var(--accent);
+  margin: 2rem 0 1rem;
+  padding-bottom: 0.5rem;
+  border-bottom: 1px solid var(--border);
+}
+
+.asar-body .asar-p {
+  text-indent: 1.6em;
+  text-align: justify;
+  margin: 0;
+}
+
+/* Dialog satrlari — chapga surilgan, biroz quyqaroq */
+.asar-body .asar-dialog {
+  text-indent: 0;
+  padding-left: 1.2em;
+  color: var(--ink-soft);
+  font-style: italic;
+}

@@ -90,8 +90,8 @@ def register_routes(app):
         strategiya = (data.get("strategiya") or "Functional equivalent").strip()
         kategoriya = (data.get("kategoriya") or "Umumiy").strip()
 
-        if not birlik or not tarjima or not izoh:
-            return jsonify({"xato": "birlik, tarjima va izoh majburiy."}), 400
+        if not birlik or not tarjima:
+            return jsonify({"xato": "birlik va tarjima majburiy."}), 400
 
         if LingvoUnit.query.filter_by(birlik=birlik).first():
             return jsonify({"xato": "Bunday birlik allaqachon mavjud."}), 409
@@ -100,6 +100,47 @@ def register_routes(app):
         db.session.add(unit)
         db.session.commit()
         return jsonify(unit.to_dict()), 201
+
+    @app.put("/api/units/<int:unit_id>")
+    def update_unit(unit_id):
+        """Birlikni tahrirlash."""
+        unit = LingvoUnit.query.get(unit_id)
+        if unit is None:
+            return jsonify({"xato": "Birlik topilmadi."}), 404
+
+        data = request.get_json(silent=True) or {}
+        birlik = (data.get("birlik") or "").strip()
+        tarjima = (data.get("tarjima") or "").strip()
+        if not birlik or not tarjima:
+            return jsonify({"xato": "birlik va tarjima majburiy."}), 400
+
+        # Boshqa birlik shu nom bilan band emasligini tekshiramiz.
+        band = LingvoUnit.query.filter(
+            LingvoUnit.birlik == birlik, LingvoUnit.id != unit_id
+        ).first()
+        if band:
+            return jsonify({"xato": "Bunday birlik allaqachon mavjud."}), 409
+
+        unit.birlik = birlik
+        unit.tarjima = tarjima
+        if "izoh" in data:
+            unit.izoh = (data.get("izoh") or "").strip()
+        if "strategiya" in data:
+            unit.strategiya = (data.get("strategiya") or "Functional equivalent").strip()
+        if "kategoriya" in data:
+            unit.kategoriya = (data.get("kategoriya") or "Umumiy").strip()
+        db.session.commit()
+        return jsonify(unit.to_dict())
+
+    @app.delete("/api/units/<int:unit_id>")
+    def delete_unit(unit_id):
+        """Birlikni o'chirish."""
+        unit = LingvoUnit.query.get(unit_id)
+        if unit is None:
+            return jsonify({"xato": "Birlik topilmadi."}), 404
+        db.session.delete(unit)
+        db.session.commit()
+        return jsonify({"ok": True})
 
     @app.post("/api/analyze")
     def analyze():

@@ -61,6 +61,47 @@ export async function fetchUnits(): Promise<{ jami: number; units: LingvoUnit[] 
   return res.json();
 }
 
+// Dashboard CRUD uchun — qo'shiladigan/tahrirlanadigan maydonlar.
+export interface UnitInput {
+  birlik: string;
+  tarjima: string;
+  strategiya: string;
+}
+
+export async function createUnit(data: UnitInput): Promise<LingvoUnit> {
+  const res = await fetch(`${API_URL}/api/units`, {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify(data),
+  });
+  if (!res.ok) {
+    const err = await res.json().catch(() => ({}));
+    throw new Error(err.xato || "Qo'shib bo'lmadi.");
+  }
+  return res.json();
+}
+
+export async function updateUnit(id: number, data: UnitInput): Promise<LingvoUnit> {
+  const res = await fetch(`${API_URL}/api/units/${id}`, {
+    method: "PUT",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify(data),
+  });
+  if (!res.ok) {
+    const err = await res.json().catch(() => ({}));
+    throw new Error(err.xato || "Tahrirlab bo'lmadi.");
+  }
+  return res.json();
+}
+
+export async function deleteUnit(id: number): Promise<void> {
+  const res = await fetch(`${API_URL}/api/units/${id}`, { method: "DELETE" });
+  if (!res.ok) {
+    const err = await res.json().catch(() => ({}));
+    throw new Error(err.xato || "O'chirib bo'lmadi.");
+  }
+}
+
 export interface AsarTomon {
   nom: string;
   html: string;

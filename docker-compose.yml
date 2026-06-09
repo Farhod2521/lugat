@@ -8,8 +8,8 @@ services:
       POSTGRES_USER: lingvo
       POSTGRES_PASSWORD: lingvo123
       POSTGRES_DB: lingvodb
-    ports:
-      - "5432:5432"
+    # Tashqi 5432 portni ochmaymiz — backend ichki tarmoq orqali ulanadi
+    # (boshqa loyihalar bilan port konflikti bo'lmasligi uchun).
     volumes:
       - pgdata:/var/lib/postgresql/data
     healthcheck:
